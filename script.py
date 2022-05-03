@@ -7,3 +7,9 @@ from cartopy.feature import ShapelyFeature
 import cartopy.crs as ccrs
 import matplotlib.patches as mpatches
 import matplotlib.lines as mlines
+
+
+
+
+
+#fig.savefig('Fermanagh.png', dpi=300, bbox_inches='tight')
