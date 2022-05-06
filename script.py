@@ -15,13 +15,13 @@ pd.set_option('display.width', desired_width)
 
 np.set_printoptions(linewidth=desired_width)
 
-pd.set_option('display.max_columns',40)
+pd.set_option('display.max_columns',40) # this tells PyCharm to show you the whole head of a table, not just 5 columns
 
 
 flood_5m = gpd.read_file('data_files/flood_5m.shp')
 hist_flood = gpd.read_file('data_files/historical_flooding.shp')
 boundary = gpd.read_file('data_files/Fermanagh_DCA.shp')
-l_erne = gpd.read_file('data_files/l_erne.shp')
+l_erne = gpd.read_file('data_files/ll_erne.shp')
 buildings = gpd.read_file('data_files/Pointer_Fermanagh.shp')
 lc = gpd.read_file('data_files/LCM_Fermanagh.shp')
 
@@ -31,26 +31,6 @@ boundary.to_crs(epsg = 2157)
 l_erne.to_crs(epsg = 2157)
 buildings.to_crs(epsg = 2157)
 lc.to_crs(epsg = 2157)
-
-"""
-fig = lc.plot()
-
-
-
-print((sum(flood_5m.area))-(sum(l_erne.area)))
-
-joined = gpd.sjoin(flood_5m, buildings, how = 'inner', lsuffix='left', rsuffix='right')
-print(joined.head())
-
-subset = gpd.sjoin(flood_5m, buildings, how='inner')
-
-flood_geom = flood_5m['geometry'].values[0]
-is_flooded = buildings['geometry'].within(flood_geom)
-
-subset = buildings[is_flooded]
-
-print(subset.groupby['TOWN'])
-"""
 
 myFig = plt.figure(figsize=(12, 12))  # create a figure of size 10x10 (representing the page size in inches)
 
@@ -84,11 +64,34 @@ for i, name in enumerate(list_lc):
 
 flood_5m_feat = ShapelyFeature(flood_5m['geometry'], myCRS,
                             edgecolor='black',
-                            facecolor = 'none',
+                            facecolor = 'red',
                             hatch = 'xx',
                             linewidth=0.5)
 ax.add_feature(flood_5m_feat)
 
-
-
+l_erne_feat = ShapelyFeature(l_erne['geometry'], myCRS,
+                            edgecolor='royalblue',
+                            facecolor = 'royalblue',
+                            linewidth=0.2)
+ax.add_feature(l_erne_feat)
 plt.savefig('Plot.png')
+
+
+print(l_erne.head())
+print(l_erne.TEMA.unique())
+
+"""
+print((sum(flood_5m.area))-(sum(l_erne.area)))
+
+joined = gpd.sjoin(flood_5m, buildings, how = 'inner', lsuffix='left', rsuffix='right')
+print(joined.head())
+
+subset = gpd.sjoin(flood_5m, buildings, how='inner')
+
+flood_geom = flood_5m['geometry'].values[0]
+is_flooded = buildings['geometry'].within(flood_geom)
+
+subset = buildings[is_flooded]
+
+print(subset.groupby['TOWN'])
+"""
