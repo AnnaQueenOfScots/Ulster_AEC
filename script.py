@@ -29,7 +29,7 @@ l_erne.to_crs(epsg = 2157)
 buildings.to_crs(epsg = 2157)
 lc.to_crs(epsg = 2157) # convert files to Irish Transverse Mercator
 
-"""
+
 myFig = plt.figure(figsize=(12, 12))  # create a figure of size 12x12 inches
 
 myCRS = ccrs.UTM(29)  # transform data to appropriate section of the Universal Transverse Mercator
@@ -79,12 +79,12 @@ area_flooded_hist = sum((hist_flood.area)-(sum(l_erne.area))) # the area of land
 
 print('Land inundated during 5m flood: {}'.format(area_flooded_5m)) #print the above value
 print('Land inundated during historical flood event: {}'.format(area_flooded_hist)) # print the above value
-"""
+
 
 flood_geom = flood_5m['geometry'].values[0] # select flood polygon
 is_flooded = buildings['geometry'].within(flood_geom) # select all buildings within fLood polygon
 
-count_buildings = buildings[is_flooded]['BUILDING_S'].size # count
+count_buildings = buildings[is_flooded]['BUILDING_S'].size # count number of buildings inundated during 5m flood
 print(count_buildings)
 
 #print(subset.groupby['TOWN'])
