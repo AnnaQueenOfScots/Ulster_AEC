@@ -112,12 +112,12 @@ lc_handles = generate_handles(lc.LAND_COVER.unique(), lc_colours, alpha=1)
 l_erne_handle = generate_handles(['l_erne'], ['royalblue'])
 flood_5m_handle = generate_handles(['flood_5m'], ['red'])
 
-handles = lc_handles + l_erne_handle + flood_5m_handle
+handles = lc_handles + l_erne_handle + flood_5m_handle # use the handles function to generate labelled symbols for each map element
 labels = list_lc + ['Lower Lough Erne', '5m Flood']
 
-leg = ax.legend(handles, labels, title='Legend', title_fontsize=12,
+leg = ax.legend(handles, labels, title='Legend', title_fontsize=12, # create the map legend and add the handles
                  fontsize=10, loc='lower right', frameon=True, framealpha=1)
-scale_bar(ax)
+scale_bar(ax) # use the scale bar function to add a scale bar to the figure
 plt.savefig('Plot.png') # save the plotted figure
 
 # 3: Flood Risk Analysis
